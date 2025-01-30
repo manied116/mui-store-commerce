@@ -1,11 +1,8 @@
-import React from 'react';
+import React from "react";
+import AppRouter from "./Router.tsx";
 
-function App() {
-  return (
-    <div className="App">
-      <h3 className="text-3xl font-bold underline">Learn React</h3>    
-    </div>
-  );
-}
+const App: React.FC = () => {
+    return <AppRouter />;
+};
 
 export default App;
