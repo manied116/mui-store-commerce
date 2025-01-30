@@ -21,7 +21,7 @@ const Header: React.FC = () => {
                     <nav className="hidden md:flex space-x-4">
                         <ul className="flex justify-between items-center font-medium text-lg text-gray-600">
                             <li className="text-gray-800 py-2 text-sm font-bold hover:rounded-lg hover:bg-gray-100 hover:border hover:border-gray-200">
-                                <Link to="/template" className="px-3 py-2">Template</Link>
+                                <Link to="/templates" className="px-3 py-2">Template</Link>
                             </li>
                             <li className="text-gray-800 py-2 text-sm font-bold hover:rounded-lg hover:bg-gray-100 hover:border hover:border-gray-200">
                                 <Link to="/designkit" className="px-3 py-2 ">Design Kits</Link>

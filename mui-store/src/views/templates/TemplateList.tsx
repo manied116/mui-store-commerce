@@ -1,5 +1,5 @@
 import React from 'react';
-import { StarIcon,HeartIcon} from '@heroicons/react/24/outline';
+import { StarIcon,HeartIcon, ChevronRightIcon} from '@heroicons/react/24/outline';
 
 interface templateProps {
     id:number;
@@ -108,11 +108,16 @@ const TEMPLATES:templateProps[] = [
     },
 ];
 
-const TemplateList = () => {
+const Templates = () => {
     return (
-        <div className="max-w-screen-lg mx-auto py-8 px-4 sm:px-6 lg:px-8">
-            <h2 className="text-2xl font-semibold text-gray-700 leading-loose md:text-start text-center">
-                Popular Templates
+        <div className="max-w-screen-xl mx-auto p-5 sm:px-6">
+            <div className="flex flex-row gap-2 items-center">
+                <p className="text-xs font-normal text-gray-500">MUI Store </p>
+                <ChevronRightIcon className="h-3 w-3 text-gray-900"/>
+                <span className="text-xs font-semibold text-gray-700">Templates</span>
+            </div>
+            <h2 className="text-3xl mt-6 font-bold text-gray-700 leading-loose md:text-start text-center">
+                Templates
             </h2>
             <div className="border-b border-dashed border-gray-200 my-4"></div>
             <div className="grid grid-cols-1 mt-4 sm:grid-cols-2 lg:grid-cols-2 gap-6">
@@ -150,4 +155,4 @@ const TemplateList = () => {
     )
 }
 
-export default TemplateList
+export default Templates
