@@ -1,6 +1,6 @@
 
 import React,{useState} from "react";
-import { StarIcon, HeartIcon, ChevronDownIcon,ChevronUpIcon,Bars3Icon,XMarkIcon } from "@heroicons/react/24/outline";
+import { StarIcon, HeartIcon, ChevronDownIcon,ChevronUpIcon,Bars3Icon,XMarkIcon,MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 
 interface TemplateProps {
     id: number;
@@ -110,7 +110,7 @@ const TEMPLATES: TemplateProps[] = [
     },
 ];
 
-const sortOptions:string[] = ["Most reviews", "Highest rating", "Lowest price"];
+const sortOptions:string[] = ["Relevance","Best Sellers","Latest Release", "Most reviews", "Best rated"];
 
 const Templates: React.FC = () => {
     const [filters, setFilters] = useState({
@@ -120,7 +120,7 @@ const Templates: React.FC = () => {
       });
     
     const [drawerOpen, setDrawerOpen]     = useState(false);
-    const [sortBy, setSortBy]             = useState("Most reviews");
+    const [sortBy, setSortBy]             = useState("Best Sellers");
     const [dropdownOpen, setDropdownOpen] = useState(false);
 
     const toggleFilter = (filter: keyof typeof filters) => {
@@ -190,6 +190,17 @@ const Templates: React.FC = () => {
                 {/* Left-Side Filters (Desktop Only) */}
                 <div className="hidden lg:flex lg:w-1/4 flex-col space-y-6">
                 {/* Filters */}
+                    <div className="flex flex-col justify-start items-start gap-2">
+                        <label className="uppercase text-gray-500  text-xs font-semibold">Search</label>
+                        <div className="relative w-full sm:w-[14rem]">
+                            <input
+                                type="text"
+                                placeholder="client admin dashboard"
+                                className="w-full py-2 pl-10 pr-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 placeholder:text-sm"
+                            />
+                            <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-blue-500" />
+                        </div>
+                    </div>
                     <div className="space-y-6">
                     {/* Frameworks */}
                         <div>
@@ -286,7 +297,9 @@ const Templates: React.FC = () => {
                         </div>
                         )}
                     </div>
+                    
                 </div>
+
                 </div>
         
                 {/* Left-Side Drawer (Mobile Only) */}
