@@ -13,7 +13,7 @@ const AppRouter: React.FC = () => {
                 <Routes>
                     <Route path="/" element={<Home />} />\
                     <Route path="/templates" element={<Templates />} />
-                    <Route path="/item/:id" element={<TemplateInfo />} />
+                    <Route path="/items/:id" element={<TemplateInfo />} />
                 </Routes>
             </main>
             <Footer />

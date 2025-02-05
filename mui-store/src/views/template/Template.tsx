@@ -1,7 +1,7 @@
 
 import React,{useState} from "react";
 import { useNavigate } from 'react-router-dom';
-import { StarIcon, HeartIcon, ChevronDownIcon,ChevronUpIcon,Bars3Icon,XMarkIcon,MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import { StarIcon, HeartIcon, ChevronDownIcon,ChevronUpIcon,Bars3Icon,XMarkIcon,MagnifyingGlassIcon,ChevronRightIcon } from "@heroicons/react/24/outline";
 
 interface TemplateProps {
     id          : number;
@@ -21,7 +21,7 @@ const TEMPLATES: TemplateProps[] = [
         description: "Admin & Dashboard",
         price:'$69',
         rating:4,
-        url:'/devias-kit-pro'
+        url:'devias-kit-pro'
     },
     {
         id: 2,
@@ -30,7 +30,7 @@ const TEMPLATES: TemplateProps[] = [
         description: "Admin & Dashboard",
         price:'$69',
         rating:5,
-        url:'/minimal-dashboard'
+        url:'minimal-dashboard'
     },
     {
         id: 3,
@@ -39,7 +39,7 @@ const TEMPLATES: TemplateProps[] = [
         description: "Landing & Corporate",
         price:'$49',
         rating:5,
-        url:'/the-front-landing-page'
+        url:'the-front-landing-page'
     },
     {
         id: 4,
@@ -48,7 +48,7 @@ const TEMPLATES: TemplateProps[] = [
         description: "Admin & Dashboard",
         price:'$69',
         rating:3,
-        url:'/mantis-react-admin-dashboard'
+        url:'mantis-react-admin-dashboard'
     },
     {
         id: 5,
@@ -57,7 +57,7 @@ const TEMPLATES: TemplateProps[] = [
         description: "Admin & Dashboard",
         price:'$69',
         rating:4,
-        url:'/berry-react-material-admin'
+        url:'berry-react-material-admin'
     },
     {
         id: 6,
@@ -66,7 +66,7 @@ const TEMPLATES: TemplateProps[] = [
         description: "Landing & Corporate",
         price:'$59',
         rating:3,
-        url:'/zone-landing-page'
+        url:'zone-landing-page'
     },
     {
         id: 7,
@@ -75,7 +75,7 @@ const TEMPLATES: TemplateProps[] = [
         description: "Admin & Dashboard",
         price:'FREE',
         rating:4,
-        url:'/devias-kit-pro'
+        url:'devias-kit-pro'
     },
     {
         id: 8,
@@ -84,7 +84,7 @@ const TEMPLATES: TemplateProps[] = [
         description: "Admin & Dashboard",
         price:'$69',
         rating:5,
-        url:'/minimal-dashboard'
+        url:'minimal-dashboard'
     },
     {
         id: 9,
@@ -93,7 +93,7 @@ const TEMPLATES: TemplateProps[] = [
         description: "Landing & Corporate",
         price:'FREE',
         rating:5,
-        url:'/the-front-landing-page'
+        url:'the-front-landing-page'
     },
     {
         id: 10,
@@ -102,7 +102,7 @@ const TEMPLATES: TemplateProps[] = [
         description: "Admin & Dashboard",
         price:'$69',
         rating:3,
-        url:'/mantis-react-admin-dashboard'
+        url:'mantis-react-admin-dashboard'
     },
     {
         id: 11,
@@ -111,7 +111,7 @@ const TEMPLATES: TemplateProps[] = [
         description: "Admin & Dashboard",
         price:'$69',
         rating:4,
-        url:'/berry-react-material-admin'
+        url:'berry-react-material-admin'
     },
     {
         id: 12,
@@ -120,7 +120,7 @@ const TEMPLATES: TemplateProps[] = [
         description: "Landing & Corporate",
         price:'FREE',
         rating:3,
-        url:'/zone-landing-page'
+        url:'zone-landing-page'
     },
 ];
 
@@ -163,8 +163,7 @@ const Templates: React.FC = () => {
     });
 
     const handleProfileClick = (id:string) => {
-        console.log(id);  
-        navigate(`/item/${id}`); // Navigates to /user/123
+        navigate(`/items/${id}`); // Navigates to /user/123
     };
     
     return (
@@ -172,7 +171,7 @@ const Templates: React.FC = () => {
             {/* Breadcrumb */}
             <div className="flex flex-row gap-2 items-center">
                 <p className="text-xs font-normal text-gray-500">MUI Store</p>
-                <ChevronDownIcon className="h-3 w-3 text-gray-900" />
+                <ChevronRightIcon className="h-3 w-3 text-gray-900" />
                 <span className="text-xs font-semibold text-gray-700">Templates</span>
             </div>
         
