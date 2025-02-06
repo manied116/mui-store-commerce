@@ -138,7 +138,7 @@ const TemplateList = () => {
                 {TEMPLATES.map((template) => (
                     <div key={template.id} className="shadow-sm rounded-lg bg-white hover:shadow-md transition-shadow p-4 flex flex-col cursor-pointer" onClick={()=>handleProfileClick(template.url)} >
                         <div className="relative">
-                            <img src={template.image} className="rounded-lg w-full h-48 object-cover" alt={template.title}/>
+                            <img src={template.image} className="rounded-lg w-full h-64 object-cover" alt={template.title}/>
                         </div>
                         <div className="mt-4 flex-1 flex flex-col justify-between">
                             <div>

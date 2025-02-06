@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
-import { useParams, } from 'react-router-dom';
-import { ShoppingCartIcon,StarIcon,CheckIcon,ArrowUpRightIcon,BoltIcon } from "@heroicons/react/24/outline";
+import { useParams,useNavigate } from 'react-router-dom';
+import { ShoppingCartIcon,StarIcon,CheckIcon,ArrowUpRightIcon,BoltIcon, ChevronLeftIcon,ChevronRightIcon } from "@heroicons/react/24/outline";
 interface TemplateProps {
     id          : number;
     image       : string;
@@ -34,7 +34,7 @@ interface Review {
     timeAgo: string;
     rating: number;
     title?: string;
-    content: string;
+    content?: string;
     category: string;
 }
 interface ChangeLogEntry {
@@ -281,6 +281,28 @@ const reviews: Review[] = [
         "The Minimal template is one of the best templates I have ever used. It is exceptionally well-written and features a superb minimalist design. The customization options are fantastic, allowing for a high degree of personalization. I am truly grateful to the amazing team that designed this template.",
       category: "Design Quality",
     },
+    {
+        name: "Muhammed A.",
+        timeAgo: "4 months ago",
+        rating: 5,
+        content:
+          "Hello,I have been using this there for almost an Year to build my product. In my opinion, this is one of the best theme I have ever worked. Swift support is one of the major highlight. Being a MUI theme, you are limitless when it comes to development. Best of luck !",
+        category: "For Flexibility",
+    },
+    {
+        name: "Abdulkhakim A.",
+        timeAgo: "5 months ago",
+        rating: 5,
+        content:
+          "Code is really easy to understand and scalable!",
+        category: "For Code Quality",
+    },
+    {
+        name: "Szabó A.",
+        timeAgo: "5 months ago",
+        rating: 5,
+        category: "For Code Quality",
+    },
 ];
 
 const changelogData: ChangeLogEntry[] = [
@@ -336,7 +358,9 @@ const changelogData: ChangeLogEntry[] = [
 const TemplateInfo = () => {
     const [activeTab, setActiveTab]     = useState<number>(1);
     const [currentPage, setCurrentPage] = useState(1);
+    const [orderCount,setOrderCount]    = useState<number[]>([])
     const { id }                        = useParams<{ id: string }>();
+    const navigate                      = useNavigate();
 
     const template = TEMPLATES.find(item => item.url === id);
 
@@ -350,6 +374,12 @@ const TemplateInfo = () => {
     const currentReviews = reviews.slice(indexOfFirstReview, indexOfLastReview);
   
     const totalPages = Math.ceil(reviews.length / reviewsPerPage);
+
+    const handleProfileClick = () => {
+        let count = [1]
+        setOrderCount(count);
+        navigate("/order-cart");
+    };
 
     return (
         <div className="max-w-screen-xl mx-auto px-4 sm:px-6 py-6">
@@ -573,7 +603,7 @@ const TemplateInfo = () => {
                                                 <p className="text-sm text-gray-500">{review.timeAgo}</p>
                                             </div>
                                         </div>
-                                        <div className="flex flex-col items-start mt-2 gap-2">
+                                        <div className="flex flex-col items-end mt-2 gap-2">
                                             <div className='flex'>
                                             {[...Array(review.rating)].map((_, i) => (
                                                 <StarIcon key={i} className="h-4 w-4 text-yellow-400 fill-yellow-400" />
@@ -593,19 +623,19 @@ const TemplateInfo = () => {
                                         disabled={currentPage === 1}
                                         className="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300 disabled:opacity-50"
                                     >
-                                    Previous
+                                        <ChevronLeftIcon className='h-4 w-4 text-gray-800 stroke-2'/>
                                     </button>
-                                    <span className="px-3 py-1 text-gray-700">Page {currentPage} of {totalPages}</span>
+                                    <span className="px-3 py-1 text-gray-700"> <span className='px-3 py-1 rounded-lg border bg-blue-50'>{currentPage}</span> of {totalPages}</span>
                                     <button
                                         onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
                                         disabled={currentPage === totalPages}
                                         className="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300 disabled:opacity-50"
                                     >
-                                    Next
+                                        <ChevronRightIcon className='h-4 w-4 text-gray-800 stroke-2'/>
                                     </button>
                                 </div>
                             </div>
-                    :   
+                    :
                         <div className="max-w-4xl mx-auto p-6">
                             {changelogData.map((entry, index) => (
                             <div key={index} className="mb-8">
@@ -659,7 +689,8 @@ const TemplateInfo = () => {
                                 </div>
                             ))}
                         </div>
-                        <button className="w-full bg-blue-600 text-white py-2 mt-4 rounded-md hover:bg-blue-700">Buy now</button>
+                        <button className="w-full bg-blue-600 text-white py-2 mt-4 rounded-md hover:bg-blue-700" onClick={()=>handleProfileClick()}>
+                            {orderCount.length > 0 ? "See in cart":"Buy now"}</button>
                         <button className="w-full border border-blue-600 text-blue-600 py-2 mt-2 rounded-md hover:bg-blue-50">Live preview</button>
                     </div>
 

@@ -1,10 +1,11 @@
 
 import React, { useState } from "react";
 import { ChartBarIcon, ShoppingCartIcon, ArrowTopRightOnSquareIcon, Bars3Icon , XMarkIcon,Squares2X2Icon} from '@heroicons/react/24/outline';
-import { Link } from "react-router-dom";
+import { Link,useLocation } from "react-router-dom";
 
 const Header: React.FC = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const location                    = useLocation();
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen)
@@ -66,8 +67,13 @@ const Header: React.FC = () => {
                             </li>
                         </ul>
                         <button className="border rounded-lg px-3 py-2 text-sm text-white bg-blue-500 font-medium">Sign up</button>
-                        <Link to="/cart" className="relative text-gray-700 hover:text-blue-500 border border-2 px-2 py-2 rounded-lg boder-blue-300 hover:bg-blue-50">
+                        <Link to="/cart" className="relative text-gray-700 hover:text-blue-500 border-2 px-2 py-2 rounded-lg boder-blue-300 hover:bg-blue-50">
                             <ShoppingCartIcon className="text-blue-600 h-5 w-5 stroke-blue-600 stroke-2"/>
+                            {location.pathname === '/order-cart' && (
+                                <span className="absolute -top-2 -right-2 bg-blue-600 text-white text-xs font-bold px-2 py-0.5 rounded-full">
+                                    1
+                                </span>
+                            )}
                         </Link>
                     </div>
                 </div>
