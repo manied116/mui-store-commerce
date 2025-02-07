@@ -1,136 +1,12 @@
 
 import React,{useState} from "react";
+// NPM
 import { useNavigate } from 'react-router-dom';
+// ICON
 import { StarIcon, HeartIcon, ChevronDownIcon,ChevronUpIcon,Bars3Icon,XMarkIcon,MagnifyingGlassIcon,ChevronRightIcon } from "@heroicons/react/24/outline";
+// DATA
+import { TEMPLATE_LISTS,SORT_OPTIONS,FRAMEWORKS,UIFRAMEWORKS,TYPES,CATEGORIES,USECASES } from "../../utils/data/constant.ts";
 
-interface TemplateProps {
-    id          : number;
-    image       : string;
-    title       : string;
-    description : string;
-    price       : string;
-    rating      : number;
-    url         : string;
-}
-
-const TEMPLATES: TemplateProps[] = [
-    {
-        id: 1,
-        image: "./assets/images/deviaskit.png",
-        title: "Devias Kit Pro - Client and Admin Dashboard",
-        description: "Admin & Dashboard",
-        price:'$69',
-        rating:4,
-        url:'devias-kit-pro'
-    },
-    {
-        id: 2,
-        image: "./assets/images/minimal.png",
-        title: "Minimal - Client and Admin Dashboard",
-        description: "Admin & Dashboard",
-        price:'$69',
-        rating:5,
-        url:'minimal-dashboard'
-    },
-    {
-        id: 3,
-        image: "./assets/images/front.png",
-        title: "theFront - Multipurpose Template + UI Kit",
-        description: "Landing & Corporate",
-        price:'$49',
-        rating:5,
-        url:'the-front-landing-page'
-    },
-    {
-        id: 4,
-        image: "./assets/images/mantis.png",
-        title: "Mantis - React Material UI Dashboard Template",
-        description: "Admin & Dashboard",
-        price:'$69',
-        rating:3,
-        url:'mantis-react-admin-dashboard'
-    },
-    {
-        id: 5,
-        image: "./assets/images/berry.png",
-        title: "Berry - React Material UI Dashboard Template",
-        description: "Admin & Dashboard",
-        price:'$69',
-        rating:4,
-        url:'berry-react-material-admin'
-    },
-    {
-        id: 6,
-        image: "./assets/images/zone.png",
-        title: "Zone - Multipurpose Landing Page + UI Kit",
-        description: "Landing & Corporate",
-        price:'$59',
-        rating:3,
-        url:'zone-landing-page'
-    },
-    {
-        id: 7,
-        image: "./assets/images/deviaskit.png",
-        title: "Devias Kit Pro - Client and Admin Dashboard",
-        description: "Admin & Dashboard",
-        price:'FREE',
-        rating:4,
-        url:'devias-kit-pro'
-    },
-    {
-        id: 8,
-        image: "./assets/images/minimal.png",
-        title: "Minimal - Client and Admin Dashboard",
-        description: "Admin & Dashboard",
-        price:'$69',
-        rating:5,
-        url:'minimal-dashboard'
-    },
-    {
-        id: 9,
-        image: "./assets/images/front.png",
-        title: "theFront - Multipurpose Template + UI Kit",
-        description: "Landing & Corporate",
-        price:'FREE',
-        rating:5,
-        url:'the-front-landing-page'
-    },
-    {
-        id: 10,
-        image: "./assets/images/mantis.png",
-        title: "Mantis - React Material UI Dashboard Template",
-        description: "Admin & Dashboard",
-        price:'$69',
-        rating:3,
-        url:'mantis-react-admin-dashboard'
-    },
-    {
-        id: 11,
-        image: "./assets/images/berry.png",
-        title: "Berry - React Material UI Dashboard Template",
-        description: "Admin & Dashboard",
-        price:'$69',
-        rating:4,
-        url:'berry-react-material-admin'
-    },
-    {
-        id: 12,
-        image: "./assets/images/zone.png",
-        title: "Zone - Multipurpose Landing Page + UI Kit",
-        description: "Landing & Corporate",
-        price:'FREE',
-        rating:3,
-        url:'zone-landing-page'
-    },
-];
-
-const sortOptions:string[]  = ["Relevance","Best Sellers","Latest Release", "Most reviews", "Best rated"];
-
-const FRAMEWORKS:string[]   = ["React 18", "Next.js", "Vite", "Remix", "Create React App"]
-const UIFRAMEWORKS:string[] = ["Material UI", "Joy UI", "Base UI", "Tailwind CSS"]
-const TYPES:string[]        = ["Fullstack boilerplates", "UI kits & Components", "Templates & Themes"]
-const CATEGORIES:string[]   = ["Admin & Dashboard", "Landing & Corporate", "E-commerce"]
-const USECASES:string[]     = ["Dashboard","E-commerce","Landing Page","Blog","Portfolio","Admin","E-commerce Admin","Business"]
 
 const Templates: React.FC = () => {
     const [filters, setFilters] = useState({
@@ -152,9 +28,9 @@ const Templates: React.FC = () => {
     };
     
     // SORT BY
-    const sortedTemplates = [...TEMPLATES].sort((a, b) => {
-        if (sortBy === "Most reviews"){ 
-            return b.rating - a.rating;
+    const sortedTemplates = [...TEMPLATE_LISTS].sort((a, b) => {
+        if (sortBy === "Most reviews"){
+            return (b.rating ?? 0) - (a.rating ?? 0)
         }
         if (sortBy === "Best Sellrs"){
           return parseInt(a.price.replace("$", "") || "0") - parseInt(b.price.replace("$", "") || "0");
@@ -162,8 +38,9 @@ const Templates: React.FC = () => {
         return 0;
     });
 
-    const handleProfileClick = (id:string) => {
-        navigate(`/items/${id}`); // Navigates to /user/123
+    // NAVIGATE TO TEMPLETE INFO
+    const handleProfileClick = (id:string | undefined) => {
+        navigate(`/items/${id}`);
     };
     
     return (
@@ -192,7 +69,7 @@ const Templates: React.FC = () => {
                         </button>
                         {dropdownOpen && (
                             <div className="absolute mt-2 w-48 bg-white border border-gray-300 rounded-lg shadow-md z-10">
-                                {sortOptions.map((option) => (
+                                {SORT_OPTIONS.map((option) => (
                                     <button
                                         key       = {option}
                                         className = "block w-full text-left px-4 py-2 font-semibold text-sm text-gray-600 hover:bg-gray-100"
@@ -445,11 +322,7 @@ const Templates: React.FC = () => {
                                                 {Array.from({ length: 5 }, (_, index) => (
                                                     <StarIcon
                                                         key={index}
-                                                        className={`h-5 w-5 ${
-                                                            index < template.rating
-                                                            ? "fill-yellow-400 text-yellow-400"
-                                                            : "text-gray-300"
-                                                        }`}
+                                                        className={`h-6 w-6 ${index < (template?.rating ?? 0) ? 'fill-yellow-400' : ''} text-yellow-400`}
                                                     />
                                                 ))}
                                             </div>

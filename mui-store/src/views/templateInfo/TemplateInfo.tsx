@@ -1,369 +1,22 @@
 import React,{useState} from 'react';
+// NPM
 import { useParams,useNavigate } from 'react-router-dom';
+// ICON
 import { ShoppingCartIcon,StarIcon,CheckIcon,ArrowUpRightIcon,BoltIcon, ChevronLeftIcon,ChevronRightIcon } from "@heroicons/react/24/outline";
-interface TemplateProps {
-    id          : number;
-    image       : string;
-    title       : string;
-    description : string;
-    price       : string;
-    rating      : number;
-    url         : string;
-}
+// DATA
+import { TEMPLATES_INFO,PACKAGEINFO,TAB_LIST,FEATURES,PAGES,ERROR,AUTH,OVERVIEW,USER,REVIEWS,CHANGE_LOG } from '../../utils/data/constant.ts';
 
-interface Tab {
-    id: number;
-    label: string;
-    content: string;
-}
-
-interface PackageProps {
-    name  : string;
-    lang? : string;
-    std   : boolean;
-    plus  : boolean;
-    ext   : boolean;
-}
-interface FeatureProps {
-    name  : string;
-    isNew   : boolean;
-}
-
-interface Review {
-    name: string;
-    timeAgo: string;
-    rating: number;
-    title?: string;
-    content?: string;
-    category: string;
-}
-interface ChangeLogEntry {
-    version: string;
-    date: string;
-    changes: (string | { text: string; link: string })[];
-  }
-
-const TEMPLATES: TemplateProps[] = [
-    {
-        id: 1,
-        image: "/assets/images/deviaskit.png",
-        title: "Devias Kit Pro - Client and Admin Dashboard",
-        description: "Admin & Dashboard",
-        price:'$69',
-        rating:4,
-        url:'devias-kit-pro'
-    },
-    {
-        id: 2,
-        image: "/assets/images/minimal.png",
-        title: "Minimal - Client and Admin Dashboard",
-        description: "Admin & Dashboard",
-        price:'$69',
-        rating:5,
-        url:'minimal-dashboard'
-    },
-    {
-        id: 3,
-        image: "/assets/images/front.png",
-        title: "theFront - Multipurpose Template + UI Kit",
-        description: "Landing & Corporate",
-        price:'$49',
-        rating:5,
-        url:'the-front-landing-page'
-    },
-    {
-        id: 4,
-        image: "/assets/images/mantis.png",
-        title: "Mantis - React Material UI Dashboard Template",
-        description: "Admin & Dashboard",
-        price:'$69',
-        rating:3,
-        url:'mantis-react-admin-dashboard'
-    },
-    {
-        id: 5,
-        image: "/assets/images/berry.png",
-        title: "Berry - React Material UI Dashboard Template",
-        description: "Admin & Dashboard",
-        price:'$69',
-        rating:4,
-        url:'berry-react-material-admin'
-    },
-    {
-        id: 6,
-        image: "/assets/images/zone.png",
-        title: "Zone - Multipurpose Landing Page + UI Kit",
-        description: "Landing & Corporate",
-        price:'$59',
-        rating:3,
-        url:'zone-landing-page'
-    },
-    {
-        id: 7,
-        image: "/assets/images/deviaskit.png",
-        title: "Devias Kit Pro - Client and Admin Dashboard",
-        description: "Admin & Dashboard",
-        price:'FREE',
-        rating:4,
-        url:'devias-kit-pro'
-    },
-    {
-        id: 8,
-        image: "/assets/images/minimal.png",
-        title: "Minimal - Client and Admin Dashboard",
-        description: "Admin & Dashboard",
-        price:'$69',
-        rating:5,
-        url:'minimal-dashboard'
-    },
-    {
-        id: 9,
-        image: "/assets/images/front.png",
-        title: "theFront - Multipurpose Template + UI Kit",
-        description: "Landing & Corporate",
-        price:'FREE',
-        rating:5,
-        url:'the-front-landing-page'
-    },
-    {
-        id: 10,
-        image: "/assets/images/mantis.png",
-        title: "Mantis - React Material UI Dashboard Template",
-        description: "Admin & Dashboard",
-        price:'$69',
-        rating:3,
-        url:'mantis-react-admin-dashboard'
-    },
-    {
-        id: 11,
-        image: "/assets/images/berry.png",
-        title: "Berry - React Material UI Dashboard Template",
-        description: "Admin & Dashboard",
-        price:'$69',
-        rating:4,
-        url:'berry-react-material-admin'
-    },
-    {
-        id: 12,
-        image: "/assets/images/zone.png",
-        title: "Zone - Multipurpose Landing Page + UI Kit",
-        description: "Landing & Corporate",
-        price:'FREE',
-        rating:3,
-        url:'zone-landing-page'
-    },
-];
-
-const PACKAGEINFO:PackageProps[] = [
-    { name: 'Starter project', lang:'(next.js, vite.js)', std: true, plus: true, ext: true },
-    { name: 'Create React App (JavaScript)', lang:'see how to', std: true, plus: true, ext: true },
-    { name: 'Next.js', lang:' (next-app-dir)', std: true, plus: true, ext: true },
-    { name: 'Vite.js (JavaScript)', std: true, plus: true, ext: true },
-    { name: 'Create React App (TypeScript)', lang:'see how to', std: false, plus: true, ext: true },
-    { name: 'Next.js (TypeScript)', lang:' (next-app-dir)', std: true, plus: true, ext: true },
-    { name: 'Vite.js (TypeScript)', std: true, plus: true, ext: true },
-    { name: 'Design Figma files', lang:'preview', std: true, plus: true, ext: true },
-]
-const tabs: Tab[] = [
-    { id: 1, label: 'Overview', content: 'This is the Overview content.' },
-    { id: 2, label: 'Features', content: 'Here are some amazing Features.' },
-    { id: 3, label: 'Pricing', content: 'Check out our competitive Pricing.' },
-];
-
-const FEATURES:FeatureProps[] = [
-    { name: 'Material UI v6', isNew: true },
-    { name: 'Vite.js v6', isNew: true },
-    { name: 'React Router v7', isNew: true },
-    { name: 'ESLint v9 (flat config)', isNew: true },
-    { name: 'Next.js v14.x (App Router version)', isNew: true },
-    { name: '70+ Pages example', isNew: false },
-    { name: '100% React hooks', isNew: false },
-    { name: 'React context API', isNew: false },
-    { name: 'Light/dark mode', isNew: false },
-    { name: 'Editors', isNew: false },
-    { name: 'Apexcharts', isNew: false },
-    { name: 'SWR fetching', isNew: false },
-    { name: 'Dropzone upload', isNew: false },
-    { name: 'Image lazy loading', isNew: false },
-    { name: 'Change color theme', isNew: false },
-    { name: 'React hook form + Zod', isNew: false },
-    { name: 'ESLint & prettier', isNew: false },
-    { name: 'Animated framer motion', isNew: false },
-    { name: 'Right-to-left layout support', isNew: false },
-    { name: 'Private / public routes (react router v6)', isNew: false },
-    { name: 'Authentication (JWT / Firebase / Amplify / Auth0 / Supabase)', isNew: false },
-    { name: 'Easy to customize', isNew: false },
-    { name: '1 year of free updates / 6 months of technical support', isNew: false },
-    { name: 'Fully responsive, and works across all modern/supported browsers & devices', isNew: false },
-];
-
-const PAGES:string[]=[
-    'Home',
-    'Components',
-    'Pricing',
-    'Payment',
-    'Maintenance',
-    'Coming soon',
-    'About us',
-    'Contact us',
-    'Faq',
-    'Shop',
-    'Product',
-    'Checkout',
-]
-const ERROR:string[]=[
-    '404',
-    '403',
-    '500',
-]
-
-const AUTH:string[]=[
-    'Sign in',
-    'Sign up',
-    'Reset Password',
-    'Update Password',
-    'Verify code',
-]
-const OVERVIEW:string[]=[
-    'App',
-    'E-Commerce',
-    'Anakytics',
-    'Banking',
-    'Booking',
-    'File',
-    'Course',
-]
-const USER:string[]=[
-    'Profile',
-    'Card',
-    'List',
-    'Create',
-    'Edit',
-    'Account',
-]
-
-const reviews: Review[] = [
-    {
-      name: "Fabio F.",
-      timeAgo: "4 days ago",
-      rating: 5,
-      content: "Great theme but not only that, it's worth every penny!",
-      category: "Design Quality",
-    },
-    {
-      name: "Christian C.",
-      timeAgo: "22 days ago",
-      rating: 5,
-      content: "My overall standard <3!!",
-      category: "Code Quality",
-    },
-    {
-      name: "bater a.",
-      timeAgo: "2 months ago",
-      rating: 5,
-      content:
-        "Really good design and coding. Thank you for making so many developers happy. Make Minimals even better. We will always be together.",
-      category: "Code Quality",
-    },
-    {
-      name: "Tony H.",
-      timeAgo: "3 months ago",
-      rating: 5,
-      content:
-        "Aside from being a full-stack developer for over decades, I've a lot of experience in design. I know how much time and effort it takes to stay on top of the latest design trends. Leveraging a template like minimals is a game changer for when you want the best-of-breed, mobile-first, front-end experience without having to invest the costly effort to roll something like the minimals project on your own. Aside from just looks, all the best practices and standards are baked into the template to ensure your project is up to date with the latest frameworks, linting and readability. I am big advocate of evangelizing the minimals template because it's worth 100x it's value in my opinion. A big thanks to the designers and team at minimal. Looking forward using this template, and future version for years to come. You have a loyal customer!",
-      category: "Design Quality",
-    },
-    {
-      name: "Nord Maier N.",
-      timeAgo: "3 months ago",
-      rating: 5,
-      content:
-        "The Minimal template is one of the best templates I have ever used. It is exceptionally well-written and features a superb minimalist design. The customization options are fantastic, allowing for a high degree of personalization. I am truly grateful to the amazing team that designed this template.",
-      category: "Design Quality",
-    },
-    {
-        name: "Muhammed A.",
-        timeAgo: "4 months ago",
-        rating: 5,
-        content:
-          "Hello,I have been using this there for almost an Year to build my product. In my opinion, this is one of the best theme I have ever worked. Swift support is one of the major highlight. Being a MUI theme, you are limitless when it comes to development. Best of luck !",
-        category: "For Flexibility",
-    },
-    {
-        name: "Abdulkhakim A.",
-        timeAgo: "5 months ago",
-        rating: 5,
-        content:
-          "Code is really easy to understand and scalable!",
-        category: "For Code Quality",
-    },
-    {
-        name: "Szabó A.",
-        timeAgo: "5 months ago",
-        rating: 5,
-        category: "For Code Quality",
-    },
-];
-
-const changelogData: ChangeLogEntry[] = [
-    {
-      version: "v6.3.0",
-      date: "Jan 01, 2025",
-      changes: [
-        "Update src/auth/context/amplify/auth-provider.*.",
-        "Update src/auth/context/auth0/auth-provider.*.",
-        "Update src/auth/guard/guest-guard.*.",
-        "Update src/components/animate/scroll-progress/scroll-progress.*.",
-        "Update src/components/settings/**.",
-        "Update src/theme/core/components/**.",
-        "Add ErrorBoundary router component for Vite.js (src/main.*).",
-        "Update slots and slotProps ",
-        { text: "ListItemText.", link: "#" },
-        "Update dependencies.",
-      ],
-    },
-    {
-      version: "v6.2.0",
-      date: "Dec 06, 2024",
-      changes: [
-        "New Material UI v6.",
-        "New React router v7.",
-        "New Eslint v9 (Flat config).",
-        "Public hooks and utils folder on npm (npm i minimal-shared).",
-        "Update src/theme.",
-        "Update src/layout.",
-        "Update src/components.",
-        { text: "Add new component number input", link: "#" },
-        { text: "Add new example pagination with API", link: "#" },
-        { text: "Add new example layout", link: "#" },
-        "Update folder API minimal-api-dev-v6.2.0.zip.",
-        "Refactor and simplify project code.",
-        "Update dependencies.",
-      ],
-    },
-    {
-      version: "v6.1.0",
-      date: "Aug 21, 2024",
-      changes: [
-        "Update public.",
-        "Update src/theme.",
-        "Update src/layout.",
-        "Update src/global.css.",
-        "Update src/config-global.ts.",
-        "Update src/hooks/use-debounce.ts.",
-      ],
-    },
-];
-  
 const TemplateInfo = () => {
     const [activeTab, setActiveTab]     = useState<number>(1);
     const [currentPage, setCurrentPage] = useState(1);
-    const [orderCount,setOrderCount]    = useState<number[]>([])
+    const [orderCount,setOrderCount]    = useState<number[]>([]);
     const { id }                        = useParams<{ id: string }>();
     const navigate                      = useNavigate();
 
-    const template = TEMPLATES.find(item => item.url === id);
+    // CHECK DATA URL AND PAGE URL
+    const template = TEMPLATES_INFO.find(item => item.url === id);
 
+    // HANDLE CHANGE TAB
     const handleChangeTab = (tabId:number) =>{
         setActiveTab(tabId);
     }
@@ -371,13 +24,13 @@ const TemplateInfo = () => {
 
     const indexOfLastReview = currentPage * reviewsPerPage;
     const indexOfFirstReview = indexOfLastReview - reviewsPerPage;
-    const currentReviews = reviews.slice(indexOfFirstReview, indexOfLastReview);
+    const currentReviews = REVIEWS.slice(indexOfFirstReview, indexOfLastReview);
   
-    const totalPages = Math.ceil(reviews.length / reviewsPerPage);
+    const totalPages = Math.ceil(REVIEWS.length / reviewsPerPage);
 
+    // NAVIGATE TO ORDER-CART
     const handleProfileClick = () => {
-        let count = [1]
-        setOrderCount(count);
+        setOrderCount([1]);
         navigate("/order-cart");
     };
 
@@ -400,12 +53,7 @@ const TemplateInfo = () => {
                     </div>
                     {/* Tabs */}
                     <div className="flex justify-start w-max">
-                        {/* <nav className="flex space-x-4">
-                            <button className="py-2 px-4 border-b-2 border-blue-500 text-blue-500 font-medium">Description</button>
-                            <button className="py-2 px-4 text-gray-600 hover:text-blue-500">Reviews</button>
-                            <button className="py-2 px-4 text-gray-600 hover:text-blue-500">Changelog</button>
-                        </nav> */}
-                        {tabs.map((tab) => (
+                        {TAB_LIST.map((tab) => (
                             <button
                                 key={tab.id}
                                 onClick={() => handleChangeTab(tab.id)}
@@ -427,8 +75,10 @@ const TemplateInfo = () => {
                             </div>
                             
                             {/* Features Table */}
-                            <div className="overflow-x-auto">
-                                <table className="min-w-full border-collapse border border-slate-400 mt-4">
+                            {/* <div className="overflow-x-auto w-full max-w-4xl mx-auto p-4">
+                            <table className="w-full border border-slate-400 text-sm"> */}
+                            <div className="overflow-x-auto w-full max-w-2xl mx-auto p-4">
+                                <table className="w-full border-collapse border border-slate-400 mt-4">
                                     <thead>
                                         <tr>
                                             <th className="py-2 px-4 border text-normal border-slate-300 text-left">Package</th>
@@ -637,7 +287,7 @@ const TemplateInfo = () => {
                             </div>
                     :
                         <div className="max-w-4xl mx-auto p-6">
-                            {changelogData.map((entry, index) => (
+                            {CHANGE_LOG.map((entry, index) => (
                             <div key={index} className="mb-8">
                                 <h3 className="text-xl font-bold text-gray-800">{entry.version}</h3>
                                 <p className="text-sm text-gray-500 mb-4">{entry.date}</p>
@@ -658,9 +308,7 @@ const TemplateInfo = () => {
                             ))}
                         </div>
                     }
-                    
                 </div>
-
                 {/* Right Section */}
                 <div className="space-y-3">
                     {/* Pricing */}
@@ -702,10 +350,7 @@ const TemplateInfo = () => {
                                 {Array.from({ length: 5 }, (_, index) => (
                                     <StarIcon
                                         key={index}
-                                        className={`h-5 w-5 ${
-                                            index < template?.rating? "fill-yellow-400 text-yellow-400"
-                                            : "text-gray-300"
-                                        }`}
+                                        className={`h-6 w-6 ${index < (template?.rating ?? 0) ? 'fill-yellow-400' : ''} text-yellow-400`}
                                     />
                             ))}
                             </div>

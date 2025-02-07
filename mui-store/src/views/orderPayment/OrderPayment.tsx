@@ -1,10 +1,13 @@
 import React from "react";
+// NPM
 import { useNavigate} from "react-router-dom";
+// ICON
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
 
 const OrderPayment = () => {
-    const navigate             = useNavigate();
+    const navigate = useNavigate();
 
+    // NAVIGATE TO ORDER CONFIRM
     const navigateConfirm =() =>{
         navigate('/order-confirm')
     }

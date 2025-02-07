@@ -1,39 +1,21 @@
 import React,{useState} from 'react';
+// NPM
 import { Link ,useNavigate} from "react-router-dom";
-
-interface cartProps {
-    id:number;
-    name:string;
-    seller:string;
-    license:string;
-    updates:string;
-    support:string;
-    price:number;
-    quantity:number;
-    image:string;
-}
-
-const cartItem = {
-    id: 1,
-    name: "Minimal - Client and Admin Dashboard",
-    seller: "Minimal",
-    license: "Standard license",
-    updates: "1 year",
-    support: "6 months",
-    price: 69.0,
-    quantity: 1,
-    image: "/assets/images/minimal.png", // Replace with actual image
-};
+// PROPS
+import { cartProps } from '../../utils/types/commonProps';
+// DATA
+import { CARTITEMS } from '../../utils/data/constant.ts';
 
 const OrderCart = () => {
 
-    const [orderData,setOrderData] = useState<cartProps | null>(cartItem);
-        const navigate             = useNavigate();
+    const [orderData,setOrderData] = useState<cartProps | null>(CARTITEMS);
+    const navigate                 = useNavigate();
 
+    // REMOVE FROM CART
     const removeItem = () =>{
         setOrderData(null);
     }
-
+    // NAVIGATE TO ORDER-PAYMENT PAGE
     const navigatePayment =() =>{
         navigate('/order-payment')
     }
@@ -74,7 +56,6 @@ const OrderCart = () => {
                             </div>
                         </div>
                     : 
-                        
                         <div className='px-2 py-4 border border-gray-1 rounded-lg'>Your cart is empty, return to <span className='text-blue-500'><Link to="/">the home page.</Link></span></div>
                     }
                 </div>

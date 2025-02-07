@@ -1,12 +1,15 @@
 
 import React, { useState } from "react";
-import { ChartBarIcon, ShoppingCartIcon, ArrowTopRightOnSquareIcon, Bars3Icon , XMarkIcon,Squares2X2Icon} from '@heroicons/react/24/outline';
+// NPM
 import { Link,useLocation } from "react-router-dom";
+// ICON
+import { ChartBarIcon, ShoppingCartIcon, ArrowTopRightOnSquareIcon, Bars3Icon , XMarkIcon,Squares2X2Icon} from '@heroicons/react/24/outline';
 
 const Header: React.FC = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const location                    = useLocation();
 
+    // MENU CHANGE MOBILE
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen)
     };
@@ -38,7 +41,7 @@ const Header: React.FC = () => {
                 <div className="flex items-center space-x-4 md:mr-12">
                     {/* Cart Icon */}
                     {isMenuOpen ? null : 
-                        <Link to="/cart" className="md:hidden relative text-gray-700 hover:text-blue-500 border border-blue-400 px-2 py-2 rounded-lg boder-blue-300 hover:bg-blue-50">
+                        <Link to="/order-cart" className="md:hidden relative text-gray-700 hover:text-blue-500 border border-blue-400 px-2 py-2 rounded-lg boder-blue-300 hover:bg-blue-50">
                             <ShoppingCartIcon className="text-blue-600 h-5 w-5 stroke-blue-600 stroke-2"/>
                         </Link>
                     }
@@ -56,7 +59,7 @@ const Header: React.FC = () => {
                     <div className="hidden md:flex items-center space-x-2">
                         <ul className="flex justify-between items-center font-medium text-lg text-gray-600">
                             <li className="text-gray-800 px-3 py-2 text-sm font-normal hover:rounded-lg hover:bg-blue-50 hover:border hover:border-gray-200">
-                                <Link to="/help" className="text-blue-600 flex items-center">
+                                <Link to="https://support.mui.com/hc/en-us" target="_blank" className="text-blue-600 flex items-center">
                                     Help <ArrowTopRightOnSquareIcon className="text-blue-600 h-5 w-5 stroke-sky-600 ml-1"/>
                                 </Link>
                             </li>
@@ -79,7 +82,7 @@ const Header: React.FC = () => {
                 </div>
             </div>
 
-            {/* Mobile Menu - Displayed when isMenuOpen is true */}
+            {/* Mobile Menu */}
             {isMenuOpen && (
                 <div className="md:hidden bg-gray-100 flex flex-col p-4">
                     <div className="shadow-lg rounded-lg bg-white p-4 flex flex-col">
