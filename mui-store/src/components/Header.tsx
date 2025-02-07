@@ -64,13 +64,13 @@ const Header: React.FC = () => {
                                 </Link>
                             </li>
                             <li className="text-blue-600 px-3 py-2 text-sm font-normal hover:rounded-lg hover:bg-blue-50 hover:border hover:border-gray-200">
-                                <Link to="/signin" className="text-blue-600 flex items-center">
+                                <Link to="/sign-in" className="text-blue-600 flex items-center">
                                     Sign in
                                 </Link>
                             </li>
                         </ul>
-                        <button className="border rounded-lg px-3 py-2 text-sm text-white bg-blue-500 font-medium">Sign up</button>
-                        <Link to="/cart" className="relative text-gray-700 hover:text-blue-500 border-2 px-2 py-2 rounded-lg boder-blue-300 hover:bg-blue-50">
+                        <button className="border rounded-lg px-3 py-2 text-sm text-white bg-blue-500 font-medium"><Link to="/sign-up" className=" items-center">Sign up</Link></button>
+                        <Link to="/order-cart" className="relative text-gray-700 hover:text-blue-500 border-2 px-2 py-2 rounded-lg boder-blue-300 hover:bg-blue-50">
                             <ShoppingCartIcon className="text-blue-600 h-5 w-5 stroke-blue-600 stroke-2"/>
                             {location.pathname === '/order-cart' && (
                                 <span className="absolute -top-2 -right-2 bg-blue-600 text-white text-xs font-bold px-2 py-0.5 rounded-full">
